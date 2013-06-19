@@ -45,6 +45,24 @@ static NSString *photoDownloads = @"downloadedphotos";
   return [[self initAppStartDate] compare:assetDate] == NSOrderedAscending;
 }
 
+- (void)syncSendPhoto:(ALAsset *)asset {
+    NSMutableURLRequest *r = [[NSMutableURLRequest alloc] init];
+    [r setURL:[NSURL URLWithString:@"http://localhost:5000/photo"]];
+
+  UIImage* image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+
+  NSData *data = UIImageJPEGRepresentation(image, 1.0);
+
+  [r setHTTPBody:data];
+  [r setHTTPMethod:@"POST"];
+    [r setValue:@"image/jpeg" forHTTPHeaderField:@"content-type"];
+
+  NSURLResponse *resp;
+  NSError *error;
+
+  [NSURLConnection sendSynchronousRequest:r returningResponse:&resp error:&error];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,6 +79,7 @@ static NSString *photoDownloads = @"downloadedphotos";
                                      if ([self downloadedAsset:asset]) {
                                        [downloadedAssetsM addObject:asset];
                                      } else {
+                                       [self syncSendPhoto:asset];
                                        [pendingAssetsM addObject:asset];
                                      }
                                    }
@@ -112,7 +131,7 @@ static NSString *photoDownloads = @"downloadedphotos";
     } else {
         a = [self.downloadedAssets objectAtIndex:indexPath.row];
     }
-    
+
     CGImageRef image = [[a defaultRepresentation] fullResolutionImage];
     UIImageView *iview = [[UIImageView alloc] initWithImage:[UIImage imageWithCGImage:image]];
 
