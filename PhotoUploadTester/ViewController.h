@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+
+@property (strong,nonatomic) NSArray *downloadedAssets;
+@property (strong,nonatomic) NSArray *pendingAssets;
+@property (strong,nonatomic) IBOutlet UITableView *table;
 
 @end
