@@ -7,6 +7,9 @@ is active.
 In addition, any photos take since the last time the app is active are
 also uploaded.
 
+Right now the uploading is tied to the ```viewDidLoad``` event, which
+means you may have to restart to the app to get the desired effect.
+
 # Setup
 
 ## iOS
