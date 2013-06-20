@@ -55,8 +55,9 @@ static NSString *photoDownloads = @"downloadedphotos";
 
 - (BOOL)assetInDateRange:(ALAsset *)asset {
     NSDate *assetDate = [asset valueForProperty:ALAssetPropertyDate];
-    
-    return [[self createOrGetAppStartDate] compare:assetDate] == NSOrderedAscending;
+    NSDate *createDate = [self createOrGetAppStartDate];
+    NSComparisonResult diff = [createDate compare:assetDate];
+    return diff == NSOrderedAscending;
 }
 
 - (void)syncSendPhoto:(ALAsset *)asset {
@@ -64,7 +65,7 @@ static NSString *photoDownloads = @"downloadedphotos";
     [self.table performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
     
     NSMutableURLRequest *r = [[NSMutableURLRequest alloc] init];
-    [r setURL:[NSURL URLWithString:@"http://localhost:5000/photo"]];
+    [r setURL:[NSURL URLWithString:@"http://adamhinz.com:5000/photo"]];
     
     UIImage* image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
     
@@ -93,9 +94,10 @@ static NSString *photoDownloads = @"downloadedphotos";
     self.library = [[ALAssetsLibrary alloc] init];
     
     self.downloadedAssets = [[NSMutableArray alloc] init];
-    self.pendingAssets = [[NSMutableArray alloc] init];
+    self.pendingAssets = [[NSMutableArray alloc] init]; 
     
-    [self updateAssets];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateAssets) name: UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)updateAssets {
