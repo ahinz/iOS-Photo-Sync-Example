@@ -1,0 +1,6 @@
+DerivedData
+*.xcworkspacedata
+*xcuserdata*
+.DS_Store
+server/env
+server/images/*.jpg

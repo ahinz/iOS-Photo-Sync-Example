@@ -270,6 +270,7 @@
 		D7FF76FB1772207F00D8589B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoUploadTester/PhotoUploadTester-Prefix.pch";
 				INFOPLIST_FILE = "PhotoUploadTester/PhotoUploadTester-Info.plist";
@@ -281,6 +282,7 @@
 		D7FF76FC1772207F00D8589B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoUploadTester/PhotoUploadTester-Prefix.pch";
 				INFOPLIST_FILE = "PhotoUploadTester/PhotoUploadTester-Info.plist";
@@ -308,6 +310,7 @@
 				D7FF76FC1772207F00D8589B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

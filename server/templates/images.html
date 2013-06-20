@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<head>
+  <title>Image Example</title>
+</head>
+<body>
+{% for image in images %}
+<div>
+  <img src="/images/{{ image }}" width="200" height="200">
+</div>
+{% endfor %}
+</body>

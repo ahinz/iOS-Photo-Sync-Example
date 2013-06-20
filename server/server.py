@@ -1,13 +1,24 @@
-from flask import Flask
+from flask import Flask, render_template, send_file
+
 import flask
 import hashlib
 import time
+import os
 
 app = Flask(__name__)
+app.debug = True
 
 @app.route('/')
-def hello_world():
-    return "Hello";
+def photos():
+    images = [f for f in os.listdir("images") if f.endswith(".jpg")]
+
+    images = sorted(images, reverse=True)
+
+    return render_template('images.html', images=images)
+
+@app.route('/images/<image>')
+def get_image(image):
+    return send_file(os.path.join("images",image))
 
 @app.route('/photo', methods=['POST'])
 def photo():
@@ -17,6 +28,8 @@ def photo():
 
     with file('images/%i_%s.jpg' % (t,name),'wb') as f:
         f.write(d)
+
+    time.sleep(3) # Mimic a delay
 
     return "OK";
 

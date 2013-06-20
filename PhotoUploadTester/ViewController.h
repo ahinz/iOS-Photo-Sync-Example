@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
-@property (strong,nonatomic) NSArray *downloadedAssets;
-@property (strong,nonatomic) NSArray *pendingAssets;
-@property (strong,nonatomic) IBOutlet UITableView *table;
+@property (strong) NSOperationQueue *queue;
+@property (strong) ALAsset *activeDownloadAsset;
+@property (strong) NSMutableArray *downloadedAssets;
+@property (strong) NSMutableArray *pendingAssets;
+@property (strong) IBOutlet UITableView *table;
+@property (strong) ALAssetsLibrary *library;
 
 @end
