@@ -48,6 +48,7 @@ static NSString *photoDownloads = @"downloadedphotos";
     if (!d) {
         d = [NSDate date];
         [[NSUserDefaults standardUserDefaults] setValue:d forKey:@"appstart"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     return d;
