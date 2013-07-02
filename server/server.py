@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, request
 
 import flask
 import hashlib
@@ -10,11 +10,17 @@ app.debug = True
 
 @app.route('/')
 def photos():
+    body_only = request.args.get('body_only') == "true"
     images = [f for f in os.listdir("images") if f.endswith(".jpg")]
 
     images = sorted(images, reverse=True)
 
-    return render_template('images.html', images=images)
+    return render_template('images.html', images=images, body_only=body_only)
+
+@app.route('/css/main.css')
+def css():
+    return render_template('main.css', )
+
 
 @app.route('/images/<image>')
 def get_image(image):

@@ -1,11 +1,20 @@
-<!DOCTYPE html>
+{% if not body_only %}<!DOCTYPE html>
 <head>
   <title>Image Example</title>
+  <link rel="stylesheet" href="/static/main.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="/static/main.js"></script>
 </head>
 <body>
-{% for image in images %}
-<div>
-  <img src="/images/{{ image }}" width="200" height="200">
+{% endif %}
+<div class="holder">
+  <ul>
+    {% for image in images %}
+    <li><img src="/images/{{ image }}" width="200" height="200"></li>
+    {% endfor %}
+  </ul>
 </div>
-{% endfor %}
+{% if not body_only %}
 </body>
+</html>
+{% endif %}

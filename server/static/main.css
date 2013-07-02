@@ -1,0 +1,12 @@
+.holder {
+    margin: 0 auto;
+    width: 75%;
+}
+
+body {
+    background: black;
+}
+
+ul li {
+    display: inline-block;
+}
