@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D735422117824D0B006D1334 /* AHTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D735422017824D0B006D1334 /* AHTableViewCell.m */; };
 		D7FF76D81772207F00D8589B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF76D71772207F00D8589B /* UIKit.framework */; };
 		D7FF76DA1772207F00D8589B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF76D91772207F00D8589B /* Foundation.framework */; };
 		D7FF76DC1772207F00D8589B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF76DB1772207F00D8589B /* CoreGraphics.framework */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D735421F17824D0B006D1334 /* AHTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHTableViewCell.h; sourceTree = "<group>"; };
+		D735422017824D0B006D1334 /* AHTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHTableViewCell.m; sourceTree = "<group>"; };
 		D7FF76D31772207F00D8589B /* PhotoUploadTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoUploadTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7FF76D71772207F00D8589B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7FF76D91772207F00D8589B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,6 +99,8 @@
 				D7FF76F51772207F00D8589B /* ViewController.h */,
 				D7FF76F61772207F00D8589B /* ViewController.m */,
 				D7FF76DE1772207F00D8589B /* Supporting Files */,
+				D735421F17824D0B006D1334 /* AHTableViewCell.h */,
+				D735422017824D0B006D1334 /* AHTableViewCell.m */,
 			);
 			path = PhotoUploadTester;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				D7FF76E41772207F00D8589B /* main.m in Sources */,
 				D7FF76E81772207F00D8589B /* AppDelegate.m in Sources */,
 				D7FF76F71772207F00D8589B /* ViewController.m in Sources */,
+				D735422117824D0B006D1334 /* AHTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

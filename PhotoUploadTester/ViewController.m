@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "AHTableViewCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
 
@@ -81,7 +83,6 @@ static NSString *photoDownloads = @"downloadedphotos";
     
     [NSURLConnection sendSynchronousRequest:r returningResponse:&resp error:&error];
     [self markAsDownloaded:asset];
-    [self.downloadedAssets addObject:asset];
     [self.pendingAssets removeObject:asset];
     self.activeDownloadAsset = nil;
     
@@ -111,9 +112,8 @@ static NSString *photoDownloads = @"downloadedphotos";
                            usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
                                [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop) {
                                    if (asset && [self assetInDateRange:asset]) {
-                                       if ([self downloadedAsset:asset]) {
-                                           [self.downloadedAssets addObject:asset];
-                                       } else {
+                                       [self.downloadedAssets insertObject:asset atIndex:0];
+                                       if (![self downloadedAsset:asset]) {
                                            [self.pendingAssets addObject:asset];
                                            [self.queue addOperationWithBlock:^{
                                                [self syncSendPhoto:asset];
@@ -136,47 +136,72 @@ static NSString *photoDownloads = @"downloadedphotos";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"cell";
+    //static NSString *identifier = @"cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    AHTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BasicCellId"];
+    /*
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+     */
     
-    if (indexPath.section == 2) {
-        [cell.textLabel setText:@"Reset"];
-        return cell;
+    ALAsset *a1, *a2;
+//    if (indexPath.section == 0) {
+//        a1 = [self.pendingAssets objectAtIndex:indexPath.row*2];
+//        a2 = [self.pendingAssets objectAtIndex:indexPath.row*2 + 1];
+//    } else {
+    a1 = [self.downloadedAssets objectAtIndex:indexPath.row*2];
+    a2 = nil;
+    
+    if (indexPath.row*2 + 1 < [self.downloadedAssets count]) {
+        a2 = [self.downloadedAssets objectAtIndex:indexPath.row*2 + 1];
     }
+//    }
     
-    ALAsset *a;
-    if (indexPath.section == 0) {
-        a = [self.pendingAssets objectAtIndex:indexPath.row];
+    cell.left.image = [[UIImage alloc] initWithCGImage:[a1 thumbnail]];
+    cell.right.image = [[UIImage alloc] initWithCGImage:[a2 thumbnail]];
+    
+    if (a1 && [self.pendingAssets containsObject:a1]) {
+        cell.left.layer.borderColor = self.activeDownloadAsset == a1 ? [UIColor yellowColor].CGColor : [UIColor redColor].CGColor;
+        cell.left.layer.borderWidth = 3.0f;
     } else {
-        a = [self.downloadedAssets objectAtIndex:indexPath.row];
+        cell.left.layer.borderWidth = 0.0f;
     }
     
-    NSURL *u = [a valueForProperty:ALAssetPropertyAssetURL];
-    NSString *s = [u description];
-    [cell.textLabel setText:s];
+    if (a2 && [self.pendingAssets containsObject:a2]) {
+        cell.right.layer.borderColor = self.activeDownloadAsset == a2 ? [UIColor yellowColor].CGColor : [UIColor redColor].CGColor;
+        cell.right.layer.borderWidth = 3.0f;
+    } else {
+        cell.right.layer.borderWidth = 0.0f;
+    }
+    
+    //NSURL *u = [a valueForProperty:ALAssetPropertyAssetURL];
+    //NSString *s = [u description];
+    //[cell.textLabel setText:s];
     
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 149.0;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ALAsset *a;
-    if (indexPath.section == 2) {
-        [[NSUserDefaults standardUserDefaults] setObject:[[NSArray alloc] init] forKey:photoDownloads];
-        [self updateAssets];
-        return;
-    } else if (indexPath.section == 0) {
-        a = [self.pendingAssets objectAtIndex:indexPath.row];
-    } else {
-        a = [self.downloadedAssets objectAtIndex:indexPath.row];
-    }
+//    if (indexPath.section == 2) {
+//        [[NSUserDefaults standardUserDefaults] setObject:[[NSArray alloc] init] forKey:photoDownloads];
+//        [self updateAssets];
+//        return;
+//    } else if (indexPath.section == 0) {
+//        a = [self.pendingAssets objectAtIndex:indexPath.row];
+//    } else {
+//        a = [self.downloadedAssets objectAtIndex:indexPath.row];
+//    }
+    a = [self.downloadedAssets objectAtIndex:indexPath.row];
     
     CGImageRef image = [[a defaultRepresentation] fullResolutionImage];
     UIImageView *iview = [[UIImageView alloc] initWithImage:[UIImage imageWithCGImage:image]];
@@ -188,23 +213,18 @@ static NSString *photoDownloads = @"downloadedphotos";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return @"Pending";
-    } else if (section == 1){
-        return @"Downloaded";
-    } else {
-        return nil;
-    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return [pendingAssets count];
-    } else if (section == 1) {
-        return [downloadedAssets count];
-    } else {
-        return 1;
-    }
+    return [downloadedAssets count] / 2 + ([downloadedAssets count] % 2);
+//    if (section == 0) {
+//        return [pendingAssets count] / 2 + ([pendingAssets count] % 2);
+//    } else if (section == 1) {
+//        return [downloadedAssets count] / 2 + ([downloadedAssets count] % 2);
+//    } else {
+//        return 1;
+//    }
 }
 
 @end

@@ -9,38 +9,44 @@
             <objects>
                 <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="1o9-c4-f6w">
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1o9-c4-f6w">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0bl-va-xhB">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="45"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicCellId" rowHeight="149" id="0bl-va-xhB" customClass="AHTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="149"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s38-5E-Ffe">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="145" id="3c3-BV-2G0"/>
+                                                        <constraint firstAttribute="height" constant="129" id="bat-Bd-0Ch"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aia-YK-VPy">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="145" id="Xq0-ey-RNi"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="OeR-UB-BXq">
-                                        <rect key="frame" x="0.0" y="91" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ikK-SC-UQk">
-                                        <rect key="frame" x="0.0" y="135" width="320" height="45"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="s38-5E-Ffe" firstAttribute="bottom" secondItem="Aia-YK-VPy" secondAttribute="bottom" type="default" id="B2f-mC-jv8"/>
+                                            <constraint firstItem="s38-5E-Ffe" firstAttribute="top" secondItem="0bl-va-xhB" secondAttribute="top" constant="11" id="KOF-91-nEQ"/>
+                                            <constraint firstItem="s38-5E-Ffe" firstAttribute="leading" secondItem="0bl-va-xhB" secondAttribute="leading" constant="11" id="P8R-KO-CVM"/>
+                                            <constraint firstAttribute="trailing" secondItem="Aia-YK-VPy" secondAttribute="trailing" constant="10" id="kxK-Hz-goW"/>
+                                            <constraint firstItem="s38-5E-Ffe" firstAttribute="top" secondItem="Aia-YK-VPy" secondAttribute="top" type="default" id="n1E-82-4RA"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="left" destination="s38-5E-Ffe" id="ffc-NV-Lf7"/>
+                                            <outlet property="right" destination="Aia-YK-VPy" id="KzU-Au-ofN"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -50,7 +56,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1o9-c4-f6w" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="XXD-iU-ejF"/>
                             <constraint firstItem="1o9-c4-f6w" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="ats-6x-4L4"/>
@@ -70,7 +76,7 @@
         <!--Navigation Controller-->
         <scene sceneID="8RV-y3-JId">
             <objects>
-                <navigationController definesPresentationContext="YES" id="0h0-Xi-LfZ" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="0h0-Xi-LfZ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zp2-vF-Nyz">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -84,6 +90,13 @@
         </scene>
     </scenes>
     <classes>
+        <class className="AHTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AHTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="left" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="right" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
